@@ -23,6 +23,7 @@ options.UseSqlServer(builder.Configuration.GetConnectionString("NZWalksAuthConne
 
 builder.Services.AddScoped<IRegionRepository, SQLRegionRepository>();
 builder.Services.AddScoped<IWalkRepository, SQLWalkRepository>();
+builder.Services.AddScoped<ITokenRepository, TokenRepository>();
 
 builder.Services.AddAutoMapper(typeof(AutoMapperProfiles));
 //ADD IDENTITY SOLUTION
