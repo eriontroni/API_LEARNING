@@ -16,47 +16,52 @@ namespace NZWalks.API.Controllers
         {
             this.imageRepository = imageRepository;
         }
-        //POST /api/images/Upload
+
+
+        // POST: /api/Images/Upload
         [HttpPost]
         [Route("Upload")]
-
         public async Task<IActionResult> Upload([FromForm] ImageUploadRequestDto request)
         {
             ValidateFileUpload(request);
-            if(ModelState.IsValid)
+
+            if (ModelState.IsValid)
             {
-                //Convert Dto to domani model;
+                // convert DTO to Domain model
                 var imageDomainModel = new Image
                 {
                     File = request.File,
                     FileExtension = Path.GetExtension(request.File.FileName),
                     FileSizeInBytes = request.File.Length,
-                    FileDescription = request.FileDescriotion
+                    FileName = request.FileName,
+                    FileDescription = request.FileDescription,
                 };
-                //user repository to upload image
+
+
+                // User repository to upload image
                 await imageRepository.Upload(imageDomainModel);
+
                 return Ok(imageDomainModel);
+
             }
+
             return BadRequest(ModelState);
         }
+
 
         private void ValidateFileUpload(ImageUploadRequestDto request)
         {
             var allowedExtensions = new string[] { ".jpg", ".jpeg", ".png" };
-            if(!allowedExtensions.Contains(Path.GetExtension(request.File.FileName)))
+
+            if (!allowedExtensions.Contains(Path.GetExtension(request.File.FileName)))
             {
-                ModelState.AddModelError("file", "Unsupported file extention");
+                ModelState.AddModelError("file", "Unsupported file extension");
             }
-            if(request.File.Length > 10485760)
+
+            if (request.File.Length > 10485760)
             {
-                ModelState.AddModelError("file", "FileSize more than 10Mb");
+                ModelState.AddModelError("file", "File size more than 10MB, please upload a smaller size file.");
             }
-        
-        
-        
-        
-        
-        
         }
     }
 }

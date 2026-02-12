@@ -17,21 +17,24 @@ namespace NZWalks.API.Repositories
         }
         public async Task<Image> Upload(Image image)
         {
-            var localFilePath = Path.Combine(webHostEnvironment.ContentRootPath,"Images",
-                image.FileName,image.FileExtension);
+            var localFilePath = Path.Combine(webHostEnvironment.ContentRootPath, "Images",
+                $"{image.FileName}{image.FileExtension}");
 
-            //Image uploading to localpath
+            // Upload Image to Local Path
             using var stream = new FileStream(localFilePath, FileMode.Create);
             await image.File.CopyToAsync(stream);
 
             // https://localhost:1234/images/image.jpg
 
             var urlFilePath = $"{httpContextAccessor.HttpContext.Request.Scheme}://{httpContextAccessor.HttpContext.Request.Host}{httpContextAccessor.HttpContext.Request.PathBase}/Images/{image.FileName}{image.FileExtension}";
+
             image.FilePath = urlFilePath;
-            //Add Image to the Images table
+
+
+            // Add Image to the Images table
             await dbContext.Images.AddAsync(image);
             await dbContext.SaveChangesAsync();
-            
+
             return image;
         }
     }
