@@ -89,7 +89,7 @@ namespace NZWalks.API.Controllers
                 RegionImageUrl = regionDomain.RegionImageUrl
             }; PA AUTOMAPPER*/
 
-            var regionDto = mapper.Map<List<RegionDto>>(regionDomain);
+            var regionDto = mapper.Map<RegionDto>(regionDomain);
             //return DTO back to client =- Best Practice
             return Ok(regionDto);// nese ka bon return 200 OK
 
@@ -193,7 +193,7 @@ namespace NZWalks.API.Controllers
         //Delete region
         //DELETE: https:localhost:portnumber/api/regions/{id}
         [HttpDelete]
-        [Authorize(Roles = "Writer")]
+        [Authorize(Roles = "Writer,Reader")]
         [Route("{id:Guid}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {

@@ -15,8 +15,6 @@ namespace NZWalks.API.Repositories
             this.configuration = configuration;
         }
 
-        
-
         public string CreateJWTToken(IdentityUser user, List<string> roles)
         {
             //Create Claims
@@ -36,12 +34,10 @@ namespace NZWalks.API.Repositories
                 configuration["Jwt:Issuer"],
                 configuration["Jwt:Audience"],
                 claims,
-                expires: DateTime.Now.AddMinutes(15),
+                expires: DateTime.Now.AddHours(1),
                 signingCredentials : credentials
                 );
             return new JwtSecurityTokenHandler().WriteToken(token);
-
-
         }
     }
 }
