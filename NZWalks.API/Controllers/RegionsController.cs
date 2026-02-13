@@ -85,7 +85,7 @@ namespace NZWalks.API.Controllers
         //GET single region by id
         [HttpGet]
         [Route("{id:Guid}")]
-        [Authorize(Roles = "Reader")]
+        //[Authorize(Roles = "Reader")]
         public async Task<IActionResult> GetById([FromRoute] Guid id)
         {
             //var region=dbContext.Regions.Find(id);
@@ -115,7 +115,7 @@ namespace NZWalks.API.Controllers
         //POST https:localhost:portnumber/api/regions
         [HttpPost]
         [ValidateModel]
-        [Authorize(Roles = "Writer")]
+        //[Authorize(Roles = "Writer")]
         public async Task<IActionResult> Create([FromBody] AddRegionRequestDto addRegionRequestDtocs)
         {
             //VALIDATIONS:
@@ -157,7 +157,7 @@ namespace NZWalks.API.Controllers
         [HttpPut]
         [Route("{id:Guid}")]
         [ValidateModel] // Ne vend te validimit me IF
-        [Authorize(Roles = "Writer")]
+       // [Authorize(Roles = "Writer")]
         public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateRegionRequestDto updateRegionRequestDto)
         {
             //VALIDATION:
@@ -207,7 +207,7 @@ namespace NZWalks.API.Controllers
         //Delete region
         //DELETE: https:localhost:portnumber/api/regions/{id}
         [HttpDelete]
-        [Authorize(Roles = "Writer,Reader")]
+        //[Authorize(Roles = "Writer,Reader")]
         [Route("{id:Guid}")]
         public async Task<IActionResult> Delete([FromRoute] Guid id)
         {
