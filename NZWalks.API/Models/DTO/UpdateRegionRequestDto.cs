@@ -4,6 +4,7 @@ namespace NZWalks.API.Models.DTO
 {
     public class UpdateRegionRequestDto
     {
+
         [Required]
         [MinLength(3, ErrorMessage = "Code Has to be a minimum of 3 characters")]
         [MaxLength(3, ErrorMessage = "Code Has to be a maximum of 3 characters")]
@@ -12,6 +13,6 @@ namespace NZWalks.API.Models.DTO
         [Required]
         [MaxLength(100, ErrorMessage = "Name Has to be a maximum of 100 characters")]
         public string Name { get; set; }
-        public string RegionImageUrl { get; set; }
+        public string? RegionImageUrl { get; set; }
     }
 }

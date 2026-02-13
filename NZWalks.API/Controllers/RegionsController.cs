@@ -37,10 +37,6 @@ namespace NZWalks.API.Controllers
         public async Task<IActionResult> GetAll()
         {
 
-            try
-            {
-                throw new Exception("This is a Custom Exception");
-
                 //Get Data From Database-Domain Models
 
                 //var regionsDomain = await dbContext.Regions.ToListAsync();
@@ -72,13 +68,6 @@ namespace NZWalks.API.Controllers
 
                 //Return DTOs
                 return Ok(mapper.Map<List<RegionDto>>(regionsDomain));
-            }
-            catch(Exception ex)
-            {
-                logger.LogError(ex, ex.Message);
-                throw;
-            }
-            return Ok();
         }
 
 
